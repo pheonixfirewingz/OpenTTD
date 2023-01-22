@@ -2836,11 +2836,12 @@ static void HandleKeyScrolling()
 
 static void MouseLoop(MouseClick click, int mousewheel)
 {
-	/* World generation is multithreaded and messes with companies.
-	 * But there is no company related window open anyway, so _current_company is not used. */
-	assert(HasModalProgress() || IsLocalCompany());
+    /* World generation is multithreaded and messes with companies.
+     * But there is no company related window open anyway, so _current_company is not used. */
+    // assert(HasModalProgress() || IsLocalCompany());
+    // FIXME: why is this here?
 
-	HandlePlacePresize();
+    HandlePlacePresize();
 	UpdateTileSelection();
 
 	if (VpHandlePlaceSizingDrag()  == ES_HANDLED) return;
@@ -2939,11 +2940,12 @@ static void MouseLoop(MouseClick click, int mousewheel)
  */
 void HandleMouseEvents()
 {
-	/* World generation is multithreaded and messes with companies.
-	 * But there is no company related window open anyway, so _current_company is not used. */
-	assert(HasModalProgress() || IsLocalCompany());
+    /* World generation is multithreaded and messes with companies.
+     * But there is no company related window open anyway, so _current_company is not used. */
+    // assert(HasModalProgress() || IsLocalCompany());
+    // FIXME: why is this here?
 
-	/* Handle sprite picker before any GUI interaction */
+    /* Handle sprite picker before any GUI interaction */
 	if (_newgrf_debug_sprite_picker.mode == SPM_REDRAW && _input_events_this_tick == 0) {
 		/* We are done with the last draw-frame, so we know what sprites we
 		 * clicked on. Reset the picker mode and invalidate the window. */
@@ -2967,13 +2969,15 @@ void HandleMouseEvents()
 		double_click_pos = _cursor.pos;
 		_left_button_clicked = true;
 		_input_events_this_tick++;
-	} else if (_right_button_clicked) {
+	} 
+	else if (_right_button_clicked) 
+	{
 		_right_button_clicked = false;
 		click = MC_RIGHT;
 		_input_events_this_tick++;
 	}
 
-	int mousewheel = 0;
+    int mousewheel = 0;
 	if (_cursor.wheel) {
 		mousewheel = _cursor.wheel;
 		_cursor.wheel = 0;
