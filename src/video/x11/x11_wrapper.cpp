@@ -27,11 +27,16 @@ X11Window::X11Window()
 int type_last = 0;
 void X11Window::getNextEvent(int *type)
 {
-    if (XNextEvent(display, &xev))
+    if (XCheckMaskEvent(display, MASKS, &xev))
+    {
         *type = xev.type;
+    }
     else
+    {
         *type = 0;
-    /*if(xev.type != type_last)
+    }
+
+    /*if (xev.type != type_last)
     {
         printf("Event ID: %d\n", xev.type);
         type_last = xev.type;
@@ -127,6 +132,12 @@ void X11Window::TranslateMsg4(XSize *size)
     *size = {configure_event.width, configure_event.height};
 }
 
+void X11Window::TranslateMsg5(unsigned int *button)
+{
+    XKeyEvent key_event = xev.xkey;
+    *button = key_event.keycode;
+}
+
 int X11Window::ClearArea(int x, int y, unsigned int width, unsigned int height)
 {
     return XClearArea(display, window, x, y, width, height, false);
@@ -159,7 +170,7 @@ void X11Window::Create(bool full_screen)
 
 void X11Window::Clean()
 {
-    XClearWindow(display,window);
+    XClearWindow(display, window);
 }
 
 bool X11Window::PollEvent()
@@ -202,8 +213,8 @@ X11Window::~X11Window()
 }
 
 X11GLContext::X11GLContext(X11Window *x_window_in)
-    : x_window(x_window_in)
-    , display(x_window_in->GetDisplay())
+    : display(x_window_in->GetDisplay())
+    , x_window(x_window_in)
 {
     _glXCreateContextAttribsARB =
         (PFNGLXCREATECONTEXTATTRIBSARBPROC)glXGetProcAddressARB((const GLubyte *)"glXCreateContextAttribsARB");

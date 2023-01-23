@@ -60,6 +60,7 @@ class X11Window
     void TranslateMsg2(XRect *rect);
     void TranslateMsg3(XSize *size);
     void TranslateMsg4(XSize *size);
+    void TranslateMsg5(unsigned int *button);
     int ClearArea(int x, int y, unsigned int width, unsigned int height);
     bool PollEvent();
     XSize GetScreenSize();

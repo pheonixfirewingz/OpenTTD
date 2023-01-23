@@ -279,7 +279,7 @@ void VideoDriver_X11Base::MainLoop()
             if (button == 1)
             {
                 _left_button_down = true;
-                _left_button_clicked = true;
+                //_left_button_clicked = true;
             }
             else if (button == 3)
             {
@@ -287,6 +287,12 @@ void VideoDriver_X11Base::MainLoop()
                 _right_button_clicked = true;
             }
             HandleMouseEvents();
+        }
+        break;
+        case 2: {
+            unsigned int button = 0;
+            x_window->TranslateMsg5(&button);
+            HandleKeypress(button, 0);
         }
         break;
         case 5: {
@@ -317,7 +323,7 @@ void VideoDriver_X11Base::MainLoop()
         {
             MarkWholeScreenDirty();
         }
-            
+
         this->Tick();
         this->SleepTillNextTick();
     }

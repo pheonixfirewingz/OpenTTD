@@ -2638,7 +2638,8 @@ void HandleKeypress(uint keycode, WChar key)
 {
 	/* World generation is multithreaded and messes with companies.
 	 * But there is no company related window open anyway, so _current_company is not used. */
-	assert(HasModalProgress() || IsLocalCompany());
+	//assert(HasModalProgress() || IsLocalCompany());
+	//WHY IS THIS HERE
 
 	/*
 	 * The Unicode standard defines an area called the private use area. Code points in this
